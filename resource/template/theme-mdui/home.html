@@ -9,37 +9,201 @@
   <link rel="shortcut icon" type="image/png" href="/static/logo.svg?v20210804" />
 
   <!-- MDUI CSS -->
-  <link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/mdui/1.0.2/css/mdui.min.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/semantic-ui/2.4.1/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.staticfile.org/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/semantic-ui-alerts.min.css">
+  <link rel="stylesheet" href="/static/theme-hotaru/css/core.css?v202012121912" type="text/css">
+  <link rel="stylesheet" href="/static/theme-hotaru/css/main.css?v202101171153" type="text/css">
+  <link rel="stylesheet" href="/static/theme-hotaru/css/darkmode.css?v202103021121" type="text/css">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/mdui/1.0.2/css/mdui.min.css"/>
   <link rel="stylesheet" href="/static/theme-mdui/mdui.css" type="text/css">
+  
   <style>
-	.mdui-table td, .mdui-table th{padding: 6px;}
-	.progress{width: 10%;min-width: 75px;}
-	.progress-text{font-size: 16px;font-weight: 800;position: relative;top: 4px;left: 6px;}
-	.offline st,.offline at,.offline gt,.offline .progress-text{color: grey;}
-	a{text-decoration:none;color:#333;}.mdui-theme-layout-dark a{color:#fff;}
+    .custom-status-text {
+      width: 5px;
+      /* 其他样式属性 */
+    }
+    .mdui-table td, .mdui-table th {
+      padding: 6px;
+    }
+    .progress {
+      width: 10%;
+      min-width: 75px;
+    }
+    .progress-text {
+      font-size: 16px;
+      font-weight: 800;
+      position: relative;
+      top: 4px;
+      left: 6px;
+    }
+    .offline st, .offline at, .offline gt, .offline .progress-text {
+      color: grey;
+    }
+    a {
+      text-decoration: none;
+      color: #333;
+    }
+    .mdui-theme-layout-dark a {
+      color: #fff;
+    }
+
+    /* 屏幕适配 */
+    @media (min-width: 1024px) {
+      .mdui-container {
+        width: 100%;
+      }
+    }
+    @media (min-width: 600px) {
+      .mdui-container {
+        width: 94%;
+      }
+    }
+    .mdui-container {
+      width: 96%;
+      max-width: 1800px;
+    }
+
+    /* 背景图片 */
+    body {
+    margin: 0; /* 清除默认的边距 */
+    padding: 0; /* 清除默认的内边距 */
+    height: 100%; /* 确保 body 高度为页面的 100% */
+    width: 100%; /* 确保 body 宽度为页面的 100% */
+    background: url(https://bingw.jasonzeng.dev/?index=random) no-repeat center center fixed; /* 背景图固定并居中 */
+    background-size: cover; /* 背景图覆盖整个页面 */
+    font-family: Arial, Helvetica, sans-serif !important;
+    z-index: -1 !important; /* 确保背景图在底层 */
+}
+    /* 小卡片 */
+    .mdui-card {
+      width: 210px;
+      height: 200px;
+      transform: scale(0.8);
+      border-radius: 10px !important;
+      background-color: #fafafa00 !important;
+    }
+    .mdui-col {
+      opacity: 0.9;
+    }
+    .mdui-table {
+      border-radius: 10px !important;
+      background-color: #d6cacab2 !important;
+    }
+    /* 版权 */
+    .ui.inverted.segment, .ui.primary.inverted.segment {
+      color: #000 !important;
+      font-weight: bold !important;
+      background-color: #fafafaa3 !important;
+    }
+
+    .mdui-appbar {
+      box-shadow: 0 -1px 10px 0 rgb(32 33 36 / 28%);
+    }
+    .mdui-card, .mdui-btn-raised, .mdui-panel-item {
+      box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+    }
+    .mdui-drawer {
+      box-shadow: -1px 10px 10px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+    }
+    footer {
+      box-shadow: 5px 0px 5px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+    }
+    st {
+      font-weight: 600;
+      color: #475bca;
+    }
+    at {
+      font-weight: 600;
+      color: #FF4081;
+    }
+    gt {
+      font-weight: 600;
+      color: #00C853;
+    }
+    yt {
+      font-weight: 600;
+      color: #ffbb00;
+    }
+    .mdui-theme-layout-dark st {
+      color: #9aa9ff;
+    }
+    .mdui-theme-layout-dark at {
+      color: #f7a4b9;
+    }
+    .mt {
+      margin-top: 15px;
+    }
+    .mt-s {
+      margin-top: 3px;
+    }
+    .mdui-card ul.mdui-list {
+      padding-left: 0;
+    }
+    .text {
+      font-size: 20px;
+    }
+    .text_s {
+      font-size: 17px;
+    }
+    .mdui-switch {
+      height: 20px;
+      line-height: 20px;
+    }
+    .stop {
+      background: #b6b6b6;
+    }
+    .stop td {
+      color: #fff;
+      font-weight: bold;
+    }
+    .ccp:hover, .poh:hover {
+      cursor: pointer;
+    }
+    .mdui-drawer, footer {
+      backdrop-filter: blur(15px) brightness(110%);
+    }
+    .mdui-card {
+      border-radius: 6px;
+      backdrop-filter: blur(7px);
+    }
+    .btn {
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+    .state-online, .state-offline {
+      width: 90%;
+      display: block;
+      text-align: center;
+    }
+    .mdui-text-center {
+      text-align: center;
+    }
   </style>
+
   {{if ts .CustomCode}}
-  {{.CustomCode|safe}}
+  {{.CustomCode | safe}}
   {{end}}
 </head>
 
 <body>
 {{template "theme-mdui/menu" .}}
 
-  <div id="app">
+<div id="app">
   <div id="container" class="mdui-container">
     <button @click="toggleView" class="mdui-fab mdui-fab-wrapper mdui-fab-fixed mdui-ripple mdui-color-pink-accent">
       <i v-if="showCard" class="mdui-icon material-icons">list</i>
       <i v-else class="mdui-icon material-icons">apps</i>
     </button>
-    <div v-if="showCard" class="mdui-row-xs-1 mdui-row-sm-2 mdui-row-md-3 mdui-row-lg-4">
+    <div v-if="showCard" class="mdui-row-xs-2 mdui-row-sm-2 mdui-row-md-3 mdui-row-lg-10">
       <div id="servers">
-        <div class="mdui-col" v-for='server in servers' :id="server.ID">
-          <div :class="'mdui-card mt' + (server.live?'':' offline')">
+        <div class="mdui-col card-container card" v-for="server in servers" :id="server.ID">
+          <div :class="'mdui-card mt card' + (server.live ? '' : ' offline')">
             <div class="mdui-card-header">
-	      <img class="mdui-card-header-avatar" :src="'https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/flag-icon-css/4.1.5/flags/1x1/' + (server.Host.CountryCode?server.Host.CountryCode:'cn') + '.svg'"/>
-	      <div class="mdui-card-header-title">@#server.Name#@</div>
-	      <div class="mdui-card-header-subtitle">@#server.Host.CountryCode.toUpperCase()#@ | @#server.Host.Platform#@ @#server.Host.PlatformVersion#@</div>
+              <img class="mdui-card-header-avatar" :src="'https://cdn.staticfile.org/flag-icon-css/4.1.5/flags/1x1/' + (server.Host.CountryCode ? server.Host.CountryCode : 'cn') + '.svg'" />
+              <div class="mdui-card-header-title">@#server.Name#@</div>
+              <div class="mdui-card-header-subtitle">@#server.Host.CountryCode.toUpperCase()#@ | @#server.Host.Platform#@ @#server.Host.PlatformVersion#@</div>
             </div>
             <div v-if="server.live" class="mdui-card-menu">
               <i :id="'info-' + server.ID" class="mdui-icon material-icons">info_outline</i>
@@ -50,10 +214,10 @@
                 <li class="mdui-list-item">
                   <i class="mdui-list-item-icon mdui-icon material-icons">memory</i>
                   <div class="mdui-list-item-content">
-                    <st class="mdui-list-item-title mdui-list-item-one-line">CPU <span>@#server.live?parseInt(server.State.CPU):'NaN'#@%</span></st>
-                    <div class="mdui-list-item-text" style="opacity:1;">
+                    <st class="mdui-list-item-title mdui-list-item-one-line">CPU <span>@#server.live ? parseInt(server.State.CPU) : 'NaN'#@%</span></st>
+                    <div class="mdui-list-item-text" style="opacity: 1;">
                       <div class="mdui-progress">
-                        <div class="mdui-progress-determinate mdui-color-indigo-400" :style="'width: ' + (server.live?server.State.CPU:'0') + '%;'"></div>
+                        <div class="mdui-progress-determinate mdui-color-indigo-400" :style="'width: ' + (server.live ? server.State.CPU : '0') + '%;'"></div>
                       </div>
                     </div>
                   </div>
@@ -61,39 +225,9 @@
                 <li class="mdui-list-item" :id="'mem-' + server.ID">
                   <i class="mdui-list-item-icon mdui-icon material-icons">straighten</i>
                   <div class="mdui-list-item-content">
-                    <at class="mdui-list-item-title mdui-list-item-one-line">MEM <span>@#server.live?parseInt(server.State?server.State.MemUsed/server.Host.MemTotal*100:0):'NaN'#@%</span></at>
+                    <at class="mdui-list-item-title mdui-list-item-one-line">MEM <span>@#server.live ? parseInt(server.State ? server.State.MemUsed / server.Host.MemTotal * 100 : 0) : 'NaN'#@%</span></at>
                     <div class="mdui-progress">
-                      <div class="mdui-progress-determinate mdui-color-pink-400" :style="'width: ' + (server.live?parseInt(server.State?server.State.MemUsed/server.Host.MemTotal*100:0):'0') + '%;'"></div>
-                    </div>
-                  </div>
-                </li>
-                <li class="mdui-list-item">
-                  <i class="mdui-list-item-icon mdui-icon material-icons">swap_vert</i>
-                  <div class="mdui-list-item-content">
-                    <div class="mdui-list-item-title">{{tr "UpNetTransfer"}}</div>
-                    <div class="mdui-list-item-text mdui-list-item-one-line" style="opacity:1;">
-                      <at><span>@#formatNetByteSize(server.State.NetOutSpeed)#@</span></at>
-                    </div>
-                  </div>
-                  <div class="mdui-list-item-content">
-                    <div class="mdui-list-item-title">{{tr "DownNetTransfer"}}</div>
-                    <div class="mdui-list-item-text mdui-list-item-one-line" style="opacity:1;">
-                      <st><span>@#formatNetByteSize(server.State.NetInSpeed)#@</span></st>
-                    </div>
-                  </div>
-                </li>
-                <li class="mdui-list-item">
-                  <i class="mdui-list-item-icon mdui-icon material-icons">swap_horiz</i>
-                  <div class="mdui-list-item-content">
-                    <div class="mdui-list-item-title">{{tr "TotalUpNetTransfer"}}</div>
-                    <div class="mdui-list-item-text mdui-list-item-one-line" style="opacity:1;">
-                      <at><span>@#formatByteSize(server.State.NetOutTransfer)#@</span></at>
-                    </div>
-                  </div>
-                  <div class="mdui-list-item-content">
-                    <div class="mdui-list-item-title">{{tr "TotalDownNetTransfer"}}</div>
-                    <div class="mdui-list-item-text mdui-list-item-one-line" style="opacity:1;">
-                      <st><span>@#formatByteSize(server.State.NetInTransfer)#@</span></st>
+                      <div class="mdui-progress-determinate mdui-color-pink-400" :style="'width: ' + (server.live ? parseInt(server.State ? server.State.MemUsed / server.Host.MemTotal * 100 : 0) : '0') + '%;'"></div>
                     </div>
                   </div>
                 </li>
@@ -106,203 +240,258 @@
 
     <div v-else class="mdui-table-fluid mdui-m-t-1">
       <table class="mdui-table mdui-table-hoverable">
-		<thead>
-		  <tr>
-		    <th class="mdui-text-center">ID</th>
-		    <th class="mdui-text-center">{{tr "Name"}}</th>
-		    <th class="mdui-text-center">{{tr "UpNetTransfer"}}</th>
-		    <th class="mdui-text-center">{{tr "DownNetTransfer"}}</th>
-		   	<th class="mdui-text-center">{{tr "TotalUpNetTransfer"}}</th>
-		    <th class="mdui-text-center">{{tr "TotalDownNetTransfer"}}</th>
-		    <th class="mdui-text-center">CPU</th>
-		    <th class="mdui-text-center">RAM</th>
-		    <th class="mdui-text-center">{{tr "Uptime"}}</th>
-		  </tr>
-		</thead>
-		<tbody>
-		  <tr :class="(server.live?'':'offline')" v-for="server in servers">
-		    <td class="mdui-text-center">@#server.ID#@</td>
-		    <td class="mdui-text-center">@#server.Name#@</td>
-		    <td class="mdui-text-center"><at>@#formatNetByteSize(server.State.NetOutSpeed)#@</at></td>
-		    <td class="mdui-text-center"><st>@#formatNetByteSize(server.State.NetInSpeed)#@</st></td>
-		    <td class="mdui-text-center"><at>@#formatByteSize(server.State.NetOutTransfer)#@</at></td>
-		    <td class="mdui-text-center"><st>@#formatByteSize(server.State.NetInTransfer)#@</st></td>
-		    <td class="progress">
-		      <div class="mdui-progress" style="height: 30px; background-color: #edbbd2;">
-		        <div class="mdui-progress-determinate mdui-color-pink-a400" :style="'width: ' + (server.live?server.State.CPU:'0') + '%;'">
-                    <span class="mdui-text-truncate progress-text">@#server.live?parseInt(server.State.CPU):'NaN'#@%</span>
+        <thead>
+          <tr>
+            <th class="mdui-text-center">名称</th>
+            <th class="mdui-text-center">国家</th>
+            <th class="mdui-text-center">网速</th>
+            <th class="mdui-text-center">总流量</th>
+            <th class="mdui-text-center">状态</th>
+            <th class="mdui-text-center">上线时间</th>
+            <th class="mdui-text-center">CPU</th>
+            <th class="mdui-text-center">RAM</th>
+            <th class="mdui-text-center">硬盘</th>
+            <th class="mdui-text-center">系统</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr :class="(server.live ? '' : 'offline')" v-for="server in servers">
+            <td class="mdui-text-center">@#server.Name#@</td>
+            <td class="mdui-text-center"><img :src="'/static/theme-daynight/img/flag/' + (server.Host && server.Host.CountryCode ? server.Host.CountryCode.toUpperCase() : 'CN') + '.png'" :title="server.Host.CountryCode.toUpperCase()" /></td>
+            <td class="mdui-text-center"><st>@#formatNetByteSize(server.State.NetInSpeed + server.State.NetOutSpeed)#@</st></td>
+            <td class="mdui-text-center"><st>@#readableBytes(server.State.NetOutTransfer + server.State.NetInTransfer)#@</st></td>
+            <td class="mdui-text-center">
+              <div class="mdui-text-center">
+                <div :class="'state-' + (server.live ? 'online' : 'offline')">
+                  <small class="mdui-text-center">
+                    @#server.live ? '运行' : '离线'#@
+                  </small>
                 </div>
-		      </div>
-		    </td>
-		    <td class="progress">
-		      <div class="mdui-progress" style="height: 30px;">
-		        <div class="mdui-progress-determinate mdui-color-indigo-400" :style="'width: ' + parseInt(server.State?server.State.MemUsed/server.Host.MemTotal*100:0) + '%;'">
-                    <span class="mdui-text-truncate progress-text">@#parseInt(server.State?server.State.MemUsed/server.Host.MemTotal*100:0)#@%</span>
+              </div>
+            </td>
+            <td class="mdui-text-center">@#secondToDate(server.State.Uptime)#@</td>
+            <td class="progress">
+              <div class="mdui-progress" style="height: 30px; background-color: #edbbd2;">
+                <div class="mdui-progress-determinate mdui-color-pink-a400" :style="'width: ' + (server.live ? server.State.CPU : '0') + '%;'">
+                  <span class="mdui-text-truncate progress-text">@#server.live ? parseInt(server.State.CPU) : 'NaN'#@%</span>
                 </div>
-		      </div>
-		    </td>
-		    <td class="mdui-text-center">@#secondToDate(server.State.Uptime)#@</td>
-		  </tr>
-		</tbody>
-	  </table>
-	</div>
-
+              </div>
+            </td>
+            <td class="progress">
+              <div class="mdui-progress" style="height: 30px;">
+                <div class="mdui-progress-determinate mdui-color-indigo-400" :style="'width: ' + parseInt(server.State ? server.State.MemUsed / server.Host.MemTotal * 100 : 0) + '%;'">
+                  <span class="mdui-text-truncate progress-text">@#parseInt(server.State ? server.State.MemUsed / server.Host.MemTotal * 100 : 0)#@%</span>
+                </div>
+              </div>
+            </td>
+            <td class="progress">
+              <div class="mdui-progress" style="height: 30px; background-color: #edbbd2;">
+                <div class="mdui-progress-determinate mdui-color-yellow-a400" :style="'width: ' + parseInt(server.State ? server.State.DiskUsed / server.Host.DiskTotal * 100 : 0) + '%;'">
+                  <span class="mdui-text-truncate progress-text">@#parseInt(server.State ? server.State.DiskUsed / server.Host.DiskTotal * 100 : 0)#@%</span>
+                </div>
+              </div>
+            </td>
+            <td class="mdui-text-center">@#server.Host.Platform#@</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  </div>
+</div>
 
 {{template "theme-mdui/footer" .}}
 
-  <script src="/static/theme-mdui/mdui.js"></script>
-  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/mdui/1.0.2/js/mdui.min.js"></script>
-  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/vue/2.6.14/vue.min.js"></script>
+<script src="/static/theme-mdui/mdui.js"></script>
+<script src="https://cdn.staticfile.org/mdui/1.0.2/js/mdui.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
 
-  <script>
-    var container=document.querySelector("#container");
-    container.style.minHeight=window.innerHeight-document.body.clientHeight+container.clientHeight+'px';
-    mdui.mutation();
-    const initData = JSON.parse('{{.Servers}}').servers;
-    var statusCards = new Vue({
-        el: '#app',
-        delimiters: ['@#', '#@'],
-        data: {
-            servers: initData,
-            cache: [],
-            showCard: true
-        },
-        methods: {
-            toggleView() {
-              this.showCard = !this.showCard
-            },
-            toFixed2(f) {
-              return f.toFixed(2)
-            },
-            secondToDate(s) {
-                var d = Math.floor(s / 3600 / 24);
-                if (d > 0) {
-                    return d + " {{tr "Day"}}"
-                }
-                var h = Math.floor(s / 3600 % 24);
-                var m = Math.floor(s / 60 % 60);
-                var s = Math.floor(s % 60);
-                return h + ":" + ("0" + m).slice(-2) + ":" + ("0" + s).slice(-2);
-            },
-            readableBytes(bytes) {
-              if (!bytes) {
-                return '0B'
-              }
-              var i = Math.floor(Math.log(bytes) / Math.log(1024)),
-                sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
-              return parseFloat((bytes / Math.pow(1024, i)).toFixed(2)) + sizes[i];
-            },
-            readableNetBytes(bytes) {
-              if (!bytes) {
-                return '0B'
-              }
-              var Kbps=125, Mbps=Kbps*1000, Gbps=Mbps*1000, Tbps=Gbps*1000;
-              if (bytes < Kbps) return (bytes * 8).toFixed(2) + 'bps';
-              if (bytes < Mbps) return (bytes / Kbps).toFixed(2) + 'Kbps';
-              if (bytes < Gbps) return (bytes / Mbps).toFixed(2) + 'Mbps';
-              if (bytes < Tbps) return (bytes / Gbps).toFixed(2) + 'Gbps';
-              else return (bytes / Tbps).toFixed(2) + 'Tbps';
-            },
-            formatTimestamp(t) {
-                return new Date(t * 1000).toLocaleString()
-            },
-            formatByteSize(bs) {
-                const x = this.readableBytes(bs)
-                return x != "NaN undefined" ? x : 'NaN'
-            },
-            formatNetByteSize(bs) {
-                const x = this.readableNetBytes(bs)
-                return x != "NaN undefined" ? x : 'NaN'
-            },
-            formatTooltip(server) {
-              var disk = this.formatByteSize(server.State.DiskUsed) + '/' + this.formatByteSize(server.Host.DiskTotal);
-              var upTime = this.secondToDate(server.State.Uptime);
-              var tooltip =
-`{content: 'System: ${server.Host.Platform}-${server.Host.PlatformVersion}[${server.Host.Arch}]<br>CPU: ${server.Host.CPU}<br>GPU: ${server.Host.GPU}<br>Disk: ${disk}<br>Online: ${upTime}<br>Version: ${server.Host.Version}'}`;
-              return tooltip
-            }
+<script>
+  var container = document.querySelector("#container");
+  container.style.minHeight = window.innerHeight - document.body.clientHeight + container.clientHeight + 'px';
+  mdui.mutation();
+  const initData = JSON.parse('{{.Servers}}').servers;
+  var statusCards = new Vue({
+    el: '#app',
+    delimiters: ['@#', '#@'],
+    data: {
+      servers: initData,
+      cache: [],
+      showCard: false
+    },
+    methods: {
+      toggleView() {
+        this.showCard = !this.showCard;
+      },
+      toFixed2(f) {
+        return f.toFixed(2);
+      },
+      secondToDate(s) {
+        var d = Math.floor(s / 3600 / 24);
+        if (d > 0) {
+          return d + " 天";
         }
-    })
-
-    const wsProtocol = window.location.protocol == "https:" ? "wss" : "ws"
-    let canShowError = true;
-    function connect() {
-      const ws = new WebSocket(wsProtocol + '://' + window.location.host + '/ws');
-      ws.onopen = function (evt) {
-        canShowError = true;
-        mdui.snackbar({
-          message: '{{tr "RealtimeChannelEstablished"}}',
-          timeout: 2000,
-          position: 'top',
-          onClosed: function () {
-            mdui.mutation();
-          }
-        });
-      }
-      var infoTooltip = {}, memTooltip = {};
-      ws.onmessage = function (evt) {
-        const data = JSON.parse(evt.data)
-        statusCards.servers = data.servers
-        for (let i = 0; i < statusCards.servers.length; i++) {
-          const ns = statusCards.servers[i];
-          if (!ns.Host) ns.live = false
-          else {
-            const lastActive = new Date(ns.LastActive).getTime()
-            if (data.now - lastActive > 10 * 1000) {
-              ns.live = false
-            } else {
-              ns.live = true
-              if (statusCards.showCard) {
-                if (infoTooltip[ns.ID]) {
-                  var disk = statusCards.formatByteSize(ns.State.DiskUsed) + '/' + statusCards.formatByteSize(ns.Host.DiskTotal);
-                  var upTime = statusCards.secondToDate(ns.State.Uptime);
-                  var content =
-                    `System: ${ns.Host.Platform}-${ns.Host.PlatformVersion}[${ns.Host.Arch}]
-  CPU: ${ns.Host.CPU}
-  Disk: ${disk}
-  Online: ${upTime}
-  Version: ${ns.Host.Version}`;
-                  infoTooltip[ns.ID].$element[0].innerText = content;
-                }
-                else {
-                  if (document.getElementById(`info-${ns.ID}`)) infoTooltip[ns.ID] = new mdui.Tooltip(`#info-${ns.ID}`, {});
-                }
-
-                if (memTooltip[ns.ID]) {
-                  var content = `${statusCards.formatByteSize(ns.State.MemUsed)}/${statusCards.formatByteSize(ns.Host.MemTotal)}`;
-                  memTooltip[ns.ID].$element[0].innerText = content;
-                }
-                else {
-                  if (document.getElementById(`mem-${ns.ID}`)) memTooltip[ns.ID] = new mdui.Tooltip(`#mem-${ns.ID}`, {});
-                }
-              } else { mdui.$('div').remove('.mdui-tooltip'); infoTooltip = {}; memTooltip = {}; }
-            }
+        var h = Math.floor(s / 3600 % 24);
+        var m = Math.floor(s / 60 % 60);
+        var s = Math.floor(s % 60);
+        return h + ":" + ("0" + m).slice(-2) + ":" + ("0" + s).slice(-2);
+      },
+      readableBytes(bytes) {
+        if (!bytes) {
+          return '0B';
+        }
+        const sizes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+        const i = Math.floor(Math.log(bytes) / Math.log(1024));
+        let result;
+        if (i >= 4) {
+          result = (bytes / Math.pow(1024, i)).toFixed(1);
+        } else {
+          result = Math.floor(bytes / Math.pow(1024, i));
+        }
+        return result + sizes[i];
+      },
+      readableNetBytes(bytes) {
+        if (!bytes) {
+          return '0B';
+        }
+        var Kbps = 125, Mbps = Kbps * 1000, Gbps = Mbps * 1000, Tbps = Gbps * 1000;
+        if (bytes < Kbps) return Math.floor(bytes * 8).toFixed(0) + 'bps';
+        if (bytes < Mbps) return Math.floor(bytes / Kbps).toFixed(0) + 'Kbps';
+        if (bytes < Gbps) return Math.floor(bytes / Mbps).toFixed(0) + 'Mbps';
+        if (bytes < Tbps) return Math.floor(bytes / Gbps).toFixed(0) + 'Gbps';
+        else return Math.floor(bytes / Tbps).toFixed(0) + 'Tbps';
+      },
+      formatByteSize(bs) {
+        const x = this.readableBytes(bs);
+        return x != "NaN undefined" ? x : 'NaN';
+      },
+      formatPercent(live, used, total) {
+        const percent = live ? (parseInt(used / total * 100) || 0) : -1;
+        if (!this.cache[percent]) {
+          this.cache[percent] = {
+            class: {
+              ui: true,
+              progress: true,
+            },
+            style: {
+              'transition-duration': '300ms',
+              'min-width': 'unset',
+              width: percent + '% !important',
+            },
+            percent,
+          };
+          if (percent < 0) {
+            this.cache[percent].style['background-color'] = 'slategray';
+            this.cache[percent].class.offline = true;
+          } else if (percent < 51) {
+            this.cache[percent].style['background-color'] = '#53B449';
+            this.cache[percent].class.fine = true;
+          } else if (percent < 81) {
+            this.cache[percent].style['background-color'] = '#FBB142';
+            this.cache[percent].class.warning = true;
+          } else {
+            this.cache[percent].style['background-color'] = '#F23D34';
+            this.cache[percent].class.error = true;
           }
         }
-        mdui.mutation();
-      }
-      ws.onclose = function () {
-        if (canShowError) {
-          canShowError = false;
-          mdui.snackbar({
-            message: '{{tr "RealtimeChannelDisconnect"}}',
-            timeout: 2000,
-            position: 'top',
-          });
-        }
-        setTimeout(function () {
-          connect()
-        }, 3000);
-      }
-      ws.onerror = function () {
-        ws.close()
+        return this.cache[percent];
+      },
+      formatTimestamp(t) {
+        return new Date(t * 1000).toLocaleString();
+      },
+      formatNetByteSize(bs) {
+        const x = this.readableNetBytes(bs);
+        return x != "NaN undefined" ? x : 'NaN';
+      },
+      formatTooltip(server) {
+        var disk = this.formatByteSize(server.State.DiskUsed) + '/' + this.formatByteSize(server.Host.DiskTotal);
+        var upTime = this.secondToDate(server.State.Uptime);
+        var tooltip = `{content: 'System: ${server.Host.Platform}-${server.Host.PlatformVersion}[${server.Host.Arch}]<br>CPU: ${server.Host.CPU}<br>Disk: ${disk}<br>Online: ${upTime}<br>Version: ${server.Host.Version}'}`;
+        return tooltip;
       }
     }
-    connect();
-  </script>
+  });
+
+  const wsProtocol = window.location.protocol == "https:" ? "wss" : "ws";
+  let canShowError = true;
+  function connect() {
+    const ws = new WebSocket(wsProtocol + '://' + window.location.host + '/ws');
+    ws.onopen = function (evt) {
+      canShowError = true;
+      mdui.snackbar({
+        message: '实时通道已建立',
+        timeout: 2000,
+        position: 'top',
+        onClosed: function () {
+          mdui.mutation();
+        }
+      });
+    };
+    var infoTooltip = {}, memTooltip = {};
+    ws.onmessage = function (evt) {
+      const data = JSON.parse(evt.data);
+      statusCards.servers = data.servers;
+      for (let i = 0; i < statusCards.servers.length; i++) {
+        const ns = statusCards.servers[i];
+        if (!ns.Host) ns.live = false;
+        else {
+          const lastActive = new Date(ns.LastActive).getTime();
+          if (data.now - lastActive > 10 * 1000) {
+            ns.live = false;
+          } else {
+            ns.live = true;
+            if (statusCards.showCard) {
+              if (infoTooltip[ns.ID]) {
+                var disk = statusCards.formatByteSize(ns.State.DiskUsed) + '/' + statusCards.formatByteSize(ns.Host.DiskTotal);
+                var upTime = statusCards.secondToDate(ns.State.Uptime);
+                var content =
+                  `System: ${ns.Host.Platform}-${ns.Host.PlatformVersion}[${ns.Host.Arch}]
+                  CPU: ${ns.Host.CPU}
+                  Disk: ${disk}
+                  Online: ${upTime}
+                  Version: ${ns.Host.Version}`;
+                infoTooltip[ns.ID].$element[0].innerText = content;
+              }
+              else {
+                if (document.getElementById(`info-${ns.ID}`)) infoTooltip[ns.ID] = new mdui.Tooltip(`#info-${ns.ID}`, {});
+              }
+
+              if (memTooltip[ns.ID]) {
+                var content = `${statusCards.formatByteSize(ns.State.MemUsed)}/${statusCards.formatByteSize(ns.Host.MemTotal)}`;
+                memTooltip[ns.ID].$element[0].innerText = content;
+              }
+              else {
+                if (document.getElementById(`mem-${ns.ID}`)) memTooltip[ns.ID] = new mdui.Tooltip(`#mem-${ns.ID}`, {});
+              }
+            } else {
+              mdui.$('div').remove('.mdui-tooltip');
+              infoTooltip = {};
+              memTooltip = {};
+            }
+          }
+        }
+      }
+      mdui.mutation();
+    };
+    ws.onclose = function () {
+      if (canShowError) {
+        canShowError = false;
+        mdui.snackbar({
+          message: '实时通道已断开',
+          timeout: 2000,
+          position: 'top',
+        });
+      }
+      setTimeout(function () {
+        connect();
+      }, 3000);
+    };
+    ws.onerror = function () {
+      ws.close();
+    };
+  }
+  connect();
+</script>
 </body>
 </html>
 {{end}}
