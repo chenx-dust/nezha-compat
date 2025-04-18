@@ -49,7 +49,6 @@ func (cv *compatV1) serve() {
 	r.GET("/profile", cv.getProfile)
 
 	r.POST("/login", cv.login)
-	r.GET("/refresh-token", cv.refreshToken)
 
 	auth := cv.r.Group("")
 	auth.Use(mygin.Authorize(mygin.AuthorizeOption{
@@ -60,10 +59,18 @@ func (cv *compatV1) serve() {
 		Btn:        "点此登录",
 		Redirect:   "/login",
 	}))
+	auth.GET("/refresh-token", cv.refreshToken)
+
 	auth.GET("/server", cv.listServer)
 	auth.GET("/notification", cv.listNotification)
 	auth.GET("/alert-rule", cv.listAlertRule)
 	auth.GET("/service/list", cv.listService)
+
+	// auth.POST("/terminal", cv.createTerminal)
+	// auth.GET("/ws/terminal/:id", cv.terminalStream)
+
+	// auth.GET("/file", cv.createFM)
+	// auth.GET("/ws/file/:id", cv.fmStream)
 }
 
 func (cv *compatV1) login(c *gin.Context) {
