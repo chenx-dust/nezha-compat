@@ -10,17 +10,10 @@ jobs:
       fail-fast: true
       matrix:
         goos: [linux, windows]
-        goarch: [amd64]
-        include:
-          - goos: linux
-            goarch: s390x
-          - goos: linux
-            goarch: arm64
+        goarch: [amd64, arm64]
 
     name: Build artifacts
     runs-on: ubuntu-latest
-    container:
-      image: goreleaser/goreleaser-cross:v1.23
     env:
       GOOS: ${{ matrix.goos }}
       GOARCH: ${{ matrix.goarch }}
