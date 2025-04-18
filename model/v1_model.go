@@ -248,6 +248,21 @@ type V1Service struct {
 	SkipServers map[uint64]bool `gorm:"-" json:"skip_servers"`
 }
 
+type V1TerminalForm struct {
+	Protocol string `json:"protocol,omitempty"`
+	ServerID uint64 `json:"server_id,omitempty"`
+}
+
+type V1CreateTerminalResponse struct {
+	SessionID  string `json:"session_id,omitempty"`
+	ServerID   uint64 `json:"server_id,omitempty"`
+	ServerName string `json:"server_name,omitempty"`
+}
+
+type V1CreateFMResponse struct {
+	SessionID string `json:"session_id,omitempty"`
+}
+
 func (s *V1Server) GetID() uint64 {
 	return s.ID
 }
