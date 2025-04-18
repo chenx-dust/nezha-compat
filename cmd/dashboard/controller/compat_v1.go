@@ -116,9 +116,9 @@ func (cv *compatV1) login(c *gin.Context) {
 
 func (cv *compatV1) refreshToken(c *gin.Context) {
 	if u, ok := c.Get(model.CtxKeyAuthorizedUser); ok {
-		u := u.(*model.User)
+		user := u.(*model.User)
 		var err error
-		u.Token, err = utils.GenerateRandomString(32)
+		user.Token, err = utils.GenerateRandomString(32)
 		if err != nil {
 			mygin.ShowErrorPage(c, mygin.ErrInfo{
 				Code:  http.StatusBadRequest,
@@ -127,14 +127,15 @@ func (cv *compatV1) refreshToken(c *gin.Context) {
 			}, true)
 			return
 		}
-		u.TokenExpired = time.Now().AddDate(0, 2, 0)
+		user.TokenExpired = time.Now().AddDate(0, 2, 0)
+		singleton.DB.Save(&user)
 
-		c.SetCookie("nz-jwt", u.Token, 60*60*24*365, "/", "", false, false)
+		c.SetCookie("nz-jwt", user.Token, 60*60*24*365, "/", "", false, false)
 		c.JSON(200, V1Response[model.V1LoginResponse]{
 			Success: true,
 			Data: model.V1LoginResponse{
-				Expire: u.TokenExpired.Format(time.RFC3339),
-				Token:  u.Token,
+				Expire: user.TokenExpired.Format(time.RFC3339),
+				Token:  user.Token,
 			},
 		})
 	} else {
