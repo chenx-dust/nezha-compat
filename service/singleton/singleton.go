@@ -147,6 +147,7 @@ func CleanMonitorHistory() {
 	} else {
 		DB.Unscoped().Delete(&model.Transfer{}, "server_id NOT IN (?) AND datetime(`created_at`) < datetime(?)", specialServerIDs, allServerKeep)
 	}
+	DB.Exec("VACUUM")
 }
 
 // IPDesensitize 根据设置选择是否对IP进行打码处理 返回处理后的IP(关闭打码则返回原IP)

@@ -21,7 +21,7 @@ import (
 	"github.com/naiba/nezha/pkg/utils"
 	"github.com/naiba/nezha/service/singleton"
 	"github.com/patrickmn/go-cache"
-	"github.com/xanzy/go-gitlab"
+	gitlab "gitlab.com/gitlab-org/api/client-go"
 	"golang.org/x/oauth2"
 	GitHubOauth2 "golang.org/x/oauth2/github"
 	GitlabOauth2 "golang.org/x/oauth2/gitlab"
