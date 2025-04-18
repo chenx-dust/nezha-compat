@@ -49,10 +49,10 @@ type Provider struct {
 func (provider *Provider) SetRecords(ctx context.Context, zone string,
 	recs []libdns.Record) ([]libdns.Record, error) {
 	for _, rec := range recs {
-		provider.recordType = rec.Type
+		provider.recordType = rec.RR().Type
 		provider.ipType = recordToIPType(provider.recordType)
-		provider.ipAddr = rec.Value
-		provider.domain = fmt.Sprintf("%s.%s", rec.Name, strings.TrimSuffix(zone, "."))
+		provider.ipAddr = rec.RR().Data
+		provider.domain = fmt.Sprintf("%s.%s", rec.RR().Name, strings.TrimSuffix(zone, "."))
 
 		req, err := provider.prepareRequest(ctx)
 		if err != nil {
