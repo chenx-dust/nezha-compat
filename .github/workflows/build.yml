@@ -149,12 +149,11 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/s390x
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             ${{ steps.image-name.outputs.GHCR_IMAGE_NAME }}:latest
             ${{ steps.image-name.outputs.GHCR_IMAGE_NAME }}:${{ steps.extract_branch.outputs.tag }}
-            ${{ steps.image-name.outputs.GHCR_IMAGE_NAME }}:${{ steps.extract_branch.outputs.branch }}
 
       - name: Build dasbboard image And Push (Snapshot)
         if: github.event_name != 'push' || !contains(github.ref, 'refs/tags/')
@@ -162,8 +161,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/s390x
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: |
             ${{ steps.image-name.outputs.GHCR_IMAGE_NAME }}:snapshot
-            ${{ steps.image-name.outputs.GHCR_IMAGE_NAME }}:${{ steps.extract_branch.outputs.branch }}
