@@ -32,6 +32,11 @@ jobs:
           rm pkg/geoip/geoip.db
           wget -qO pkg/geoip/geoip.db https://ipinfo.io/data/free/country.mmdb?token=${IPINFO_TOKEN}
 
+      - name: Prepare CGO cross compile environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-aarch64-linux-gnu
+
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
@@ -157,7 +162,7 @@ jobs:
             ${{ steps.image-name.outputs.GHCR_IMAGE_NAME }}:${{ steps.extract_branch.outputs.branch }}
 
       - name: Build dasbboard image And Push (Snapshot)
-        if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
+        if: github.event_name != 'push' || !contains(github.ref, 'refs/tags/')
         uses: docker/build-push-action@v5
         with:
           context: .
