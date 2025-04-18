@@ -48,7 +48,8 @@ func (cv *compatV1) serve() {
 	r.GET("/setting", cv.listConfig)
 	r.GET("/profile", cv.getProfile)
 
-	r.POST("/login", cv.mimicLogin)
+	r.POST("/login", cv.login)
+	r.GET("/refresh-token", cv.refreshToken)
 
 	auth := cv.r.Group("")
 	auth.Use(mygin.Authorize(mygin.AuthorizeOption{
@@ -65,7 +66,7 @@ func (cv *compatV1) serve() {
 	auth.GET("/service/list", cv.listService)
 }
 
-func (cv *compatV1) mimicLogin(c *gin.Context) {
+func (cv *compatV1) login(c *gin.Context) {
 	var lr model.V1LoginRequest
 	if err := c.ShouldBindJSON(&lr); err != nil {
 		c.JSON(400, V1Response[any]{
@@ -74,14 +75,14 @@ func (cv *compatV1) mimicLogin(c *gin.Context) {
 		return
 	}
 
-	apiToken := lr.Username
+	apiToken := lr.Password
 	isLogin := false
+	var u model.User
 	if apiToken != "" {
-		var u model.User
 		singleton.ApiLock.RLock()
-		if _, ok := singleton.ApiTokenList[apiToken]; ok {
-			err := singleton.DB.First(&u).Where("id = ?", singleton.ApiTokenList[apiToken].UserID).Error
-			isLogin = err == nil
+		if token, ok := singleton.ApiTokenList[apiToken]; ok {
+			err := singleton.DB.First(&u).Where("id = ?", token.UserID).Error
+			isLogin = err == nil && token.Note == lr.Username
 		}
 		singleton.ApiLock.RUnlock()
 		if isLogin {
@@ -95,13 +96,43 @@ func (cv *compatV1) mimicLogin(c *gin.Context) {
 			Error: "ApiErrorUnauthorized",
 		})
 	} else {
-		c.SetCookie("nz-jwt", apiToken, 60*60*24*365, "/", "", false, false)
+		c.SetCookie("nz-jwt", u.Token, 60*60*24*365, "/", "", false, false)
 		c.JSON(200, V1Response[model.V1LoginResponse]{
 			Success: true,
 			Data: model.V1LoginResponse{
-				Expire: time.Now().Add(time.Hour * 24 * 365).Format(time.RFC3339),
-				Token:  apiToken,
+				Expire: u.TokenExpired.Format(time.RFC3339),
+				Token:  u.Token,
 			},
+		})
+	}
+}
+
+func (cv *compatV1) refreshToken(c *gin.Context) {
+	if u, ok := c.Get(model.CtxKeyAuthorizedUser); ok {
+		u := u.(*model.User)
+		var err error
+		u.Token, err = utils.GenerateRandomString(32)
+		if err != nil {
+			mygin.ShowErrorPage(c, mygin.ErrInfo{
+				Code:  http.StatusBadRequest,
+				Title: "Something wrong",
+				Msg:   err.Error(),
+			}, true)
+			return
+		}
+		u.TokenExpired = time.Now().AddDate(0, 2, 0)
+
+		c.SetCookie("nz-jwt", u.Token, 60*60*24*365, "/", "", false, false)
+		c.JSON(200, V1Response[model.V1LoginResponse]{
+			Success: true,
+			Data: model.V1LoginResponse{
+				Expire: u.TokenExpired.Format(time.RFC3339),
+				Token:  u.Token,
+			},
+		})
+	} else {
+		c.JSON(400, V1Response[any]{
+			Error: "ApiErrorUnauthorized",
 		})
 	}
 }

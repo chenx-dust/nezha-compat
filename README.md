@@ -38,13 +38,13 @@ Then follow the prompt. *English version temporarily not provided.*
 - 关于鉴权
   - 基于 API Key 实现的鉴权
   - 支持模仿 `/api/v1/login` 接口实现登录
-    - 账号： API Key
-    - 密码： 任意
+    - 账号：API Key 对应备注
+    - 密码： API Key
   - 支持三种提供 API Key 的方式
     - Cookie: `nz-jwt` （v1 版本默认使用）
     - Header: `Authorization: Bearer <API Key>` （v1 版本 API 使用）
     - Header: `Authorization: <API Key>` （v0 版本 API 使用）
-  - 由于 API Key 鉴权方式较弱，故没有实现任何可能造成副作用的 API （如：终端、修改参数等）
+  - 强制设置网站 CookieName 为 `nz-jwt` 便于保证兼容性
 
 ## Acknowledge / 致谢
 
