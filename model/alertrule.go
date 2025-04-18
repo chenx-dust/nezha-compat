@@ -96,7 +96,6 @@ func (r *AlertRule) Check(points [][]interface{}) (int, bool) {
 			for j := len(points[i]) - 1; j >= 0; j-- {
 				if points[i][j] != nil {
 					count++
-					break
 				}
 			}
 		} else {
@@ -119,10 +118,9 @@ func (r *AlertRule) Check(points [][]interface{}) (int, bool) {
 			// 当70%以上的采样点未通过规则判断时 才认为当前检查未通过
 			if fail/total > 0.7 {
 				count++
-				break
 			}
 		}
 	}
-	// 仅当所有检查均未通过时 返回false
+	// 仅当所有检查均未通过时 才触发告警
 	return maxNum, count != len(r.Rules)
 }
